@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:26:46 by swied             #+#    #+#             */
-/*   Updated: 2025/07/03 15:04:34 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:49:30 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	check_dead(t_data *data)
 			pthread_mutex_lock(data->stop_mutex);
 			data->stop_simulation = 1;
 			pthread_mutex_unlock(data->stop_mutex);
-			printf("%llu %d died\n", get_time() - data->time->start, data->philo[i].id);
-			pthread_mutex_unlock(data->stop_mutex);
+			printf("%lu %d died\n", get_time() - data->time->start, data->philo[i].id);
+			pthread_mutex_unlock(data->mealtime);
 			return (-1);
 		}
 		pthread_mutex_unlock(data->mealtime);

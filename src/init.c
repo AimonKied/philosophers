@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 15:22:16 by swied             #+#    #+#             */
-/*   Updated: 2025/07/03 16:59:23 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:28:20 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ int	init_all(t_data *data)
 	if (init_mutex(data) == -1)
 		return (free(data->philo), -1);
 	if (init_threads(data) == -1)
-		return (free(data->philo), free(data->forks), free(data->stop_mutex), free(data->mealtime), -1);
-	data->stop_simulation = 0;
+		return (free(data->philo), free(data->forks),
+			free(data->stop_mutex), free(data->mealtime), -1);
+	data->time = malloc(sizeof(t_time));
+	if (!data->time)
+		return (printf("Alloc failed\n"), -1);
 	return (0);
 }
 

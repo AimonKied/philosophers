@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/07/03 16:51:37 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 15:38:38 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <stdint.h>
 
 typedef struct s_data t_data;
 
@@ -70,6 +71,8 @@ int	fill_data(int argc, char **argv, t_data *data);
 
 int	ft_atoi(const char *str);
 uint64_t	get_time();
+void	get_first_meal(t_data *data);
+int	check_stop(t_data *data);
 
 void	free_table(t_data *data);
 void	destroy_mutex(t_data *data);
@@ -84,5 +87,10 @@ int		init_threads(t_data *data);
 int	execute(t_data *data);
 void	*monitor_routine(void *arg);
 // int	check_stop(t_data *data);
+
+int	philo_eat_even(t_philo *philo);
+int	philo_eat_odd(t_philo *philo);
+int	philo_sleep(t_philo *philo);
+int philo_think(t_philo *philo);
 
 #endif

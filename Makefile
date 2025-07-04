@@ -6,7 +6,7 @@
 #    By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/24 15:24:31 by swied             #+#    #+#              #
-#    Updated: 2025/07/03 17:17:17 by swied            ###   ########.fr        #
+#    Updated: 2025/07/04 14:44:33 by swied            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS :=	$(SRCD)/main.c \
 		$(SRCD)/utils.c \
 		$(SRCD)/free.c \
 		$(SRCD)/init.c \
-		$(SRCD)/execute.c
+		$(SRCD)/execute.c \
+		$(SRCD)/dining.c
 
 OBJS := $(SRCS:$(SRCD)/%.c=$(OBJD)/%.o)
 
