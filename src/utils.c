@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 14:20:53 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:24:03 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	ft_atoi(const char *str)
 	return (nb * sign);
 }
 
-uint64_t	get_time()
+uint64_t	get_time(void)
 {
 	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }
@@ -70,5 +71,20 @@ int	check_stop(t_data *data)
 		return (-1);
 	}
 	pthread_mutex_unlock(data->stop_mutex);
+	return (0);
+}
+
+int	ft_usleep(uint64_t time)
+{
+	uint64_t	start;
+	uint64_t	elapsed;
+
+	start = get_time();
+	elapsed = get_time();
+	while ((elapsed - start) * 1000 < time)
+	{
+		usleep(100);
+		elapsed = get_time();
+	}
 	return (0);
 }

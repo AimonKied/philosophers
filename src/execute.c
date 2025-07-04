@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 15:03:26 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:30:02 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,38 @@
 
 void	*philo_routine(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
-	t_data  *data = philo->data;
+	t_philo	*philo;
 
+	philo = (t_philo *)arg;
 	while (1)
 	{
-		if (check_stop(data) == -1)
-			break;
-		if (philo->id % 2 == 0)
+		if (check_stop(philo->data) == -1)
+			break ;
+		if (philo->left_fork < philo->right_fork)
 		{
-			if (philo_eat_even(philo) == -1)
-				break;
+			if (philo_eat(philo, 1) == -1)
+				break ;
 		}
 		else
 		{
-			if (philo_eat_odd(philo) == -1)
-				break;
+			if (philo_eat(philo, 2) == -1)
+				break ;
 		}
 		philo_sleep(philo);
+		if (check_stop(philo->data) == -1)
+			break ;
 		philo_think(philo);
+		if (check_stop(philo->data) == -1)
+			break ;
 	}
-	return NULL;
-	}
+	return (NULL);
+}
 
 void	*monitor_routine(void *arg)
 {
-	t_data *data = (t_data *)arg;
+	t_data	*data;
 
+	data = (t_data *)arg;
 	while (1)
 	{
 		if (check_dead(data) == -1)
@@ -48,17 +53,17 @@ void	*monitor_routine(void *arg)
 			pthread_mutex_lock(data->stop_mutex);
 			data->stop_simulation = 1;
 			pthread_mutex_unlock(data->stop_mutex);
-			break;
+			break ;
 		}
-		usleep(1000);
+		ft_usleep(1000);
 	}
-	return(NULL);
+	return (NULL);
 }
 
 int	execute(t_data *data)
 {
-	int	i;
-	pthread_t monitor;
+	int			i;
+	pthread_t	monitor;
 
 	data->time->start = get_time();
 	get_first_meal(data);
@@ -66,7 +71,8 @@ int	execute(t_data *data)
 	i = 0;
 	while (i < data->table->nb_philos)
 	{
-		if (pthread_create(&data->t[i], NULL, philo_routine, &data->philo[i]) != 0)
+		if (pthread_create(&data->t[i], NULL,
+				philo_routine, &data->philo[i]) != 0)
 			return (printf("Thread creation failed\n"), -1);
 		i++;
 	}
@@ -77,6 +83,5 @@ int	execute(t_data *data)
 		i++;
 	}
 	pthread_join(monitor, NULL);
-	return 0;
+	return (0);
 }
-

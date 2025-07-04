@@ -6,11 +6,11 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 15:38:38 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:33:08 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	PHILO_H
+#ifndef PHILO_H
 # define PHILO_H
 
 # include <stdio.h>
@@ -20,7 +20,7 @@
 # include <pthread.h>
 # include <stdint.h>
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
@@ -61,36 +61,35 @@ typedef struct s_data
 	pthread_t		*t;
 }	t_data;
 
-int	main(int argc, char **argv);
+int			main(int argc, char **argv);
 
-int	check_arg(char *arg);
-int	check_input(char **argv);
-int	check_dead(t_data *data);
+int			check_arg(char *arg);
+int			check_input(char **argv);
+int			check_dead(t_data *data);
 
-int	fill_data(int argc, char **argv, t_data *data);
+int			fill_data(int argc, char **argv, t_data *data);
 
-int	ft_atoi(const char *str);
-uint64_t	get_time();
-void	get_first_meal(t_data *data);
-int	check_stop(t_data *data);
+int			ft_atoi(const char *str);
+uint64_t	get_time(void);
+void		get_first_meal(t_data *data);
+int			check_stop(t_data *data);
+int			ft_usleep(uint64_t time);
 
-void	free_table(t_data *data);
-void	destroy_mutex(t_data *data);
+void		free_table(t_data *data);
+void		destroy_mutex(t_data *data);
 
-int		init_all(t_data *data);
-int		init_philo(t_data *data);
-void	init_forks(t_data *data);
-int		init_mutex(t_data *data);
-int		init_threads(t_data *data);
+int			init_all(t_data *data);
+int			init_philo(t_data *data);
+void		init_forks(t_data *data);
+int			init_mutex(t_data *data);
+int			init_threads(t_data *data);
 
-// void *test_mutex(void *arg);
-int	execute(t_data *data);
-void	*monitor_routine(void *arg);
-// int	check_stop(t_data *data);
+int			execute(t_data *data);
+void		*monitor_routine(void *arg);
 
-int	philo_eat_even(t_philo *philo);
-int	philo_eat_odd(t_philo *philo);
-int	philo_sleep(t_philo *philo);
-int philo_think(t_philo *philo);
+int			philo_eat(t_philo *philo, int flag);
+void		get_forks(t_philo *philo, int flag);
+int			philo_sleep(t_philo *philo);
+int			philo_think(t_philo *philo);
 
 #endif

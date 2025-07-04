@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 15:22:16 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 15:28:20 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:22:39 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int	init_all(t_data *data)
 
 int	init_philo(t_data *data)
 {
-	int	num = 0;
+	int	num;
+
+	num = 0;
 	data->philo = malloc(sizeof(t_philo) * data->table->nb_philos);
 	if (!data->philo)
 		return (printf("Alloc failed\n"), -1);
@@ -45,12 +47,15 @@ int	init_philo(t_data *data)
 
 void	init_forks(t_data *data)
 {
-	int	i = 0;
-	int	fork_counter = 0;
+	int	i;
+	int	fork_counter;
+
+	i = 0;
+	fork_counter = 0;
 	while (i < data->table->nb_philos - 1)
 	{
 		data->philo[i].left_fork = fork_counter;
-		data->philo[i].right_fork = fork_counter + 1;		
+		data->philo[i].right_fork = fork_counter + 1;
 		i++;
 		fork_counter++;
 	}

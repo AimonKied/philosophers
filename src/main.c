@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:09:26 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 14:10:48 by swied            ###   ########.fr       */
+/*   Updated: 2025/07/04 18:12:10 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (argc < 5 || argc > 6)	
+	if (argc < 5 || argc > 6)
 		return (printf("Wrong amount of arguments\n"), 0);
 	if (check_input(argv) == -1)
 		return (0);
