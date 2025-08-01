@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 18:30:02 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/02 00:12:49 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,18 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		if (check_stop(philo->data) == -1)
-			break ;
-		if (philo->left_fork < philo->right_fork)
+		if (philo->data->table->reps >= philo->meals_eaten)
 		{
-			if (philo_eat(philo, 1) == -1)
+			if (philo->data->table->reps == philo->meals_eaten)
+				break ;
+			if (check_stop(philo->data))
 				break ;
 		}
-		else
-		{
-			if (philo_eat(philo, 2) == -1)
-				break ;
-		}
-		philo_sleep(philo);
-		if (check_stop(philo->data) == -1)
+		if (philo_eat(philo) == -1)
 			break ;
-		philo_think(philo);
-		if (check_stop(philo->data) == -1)
+		if (philo_sleep(philo) == -1)
+			break ;
+		if (philo_think(philo) == -1)
 			break ;
 	}
 	return (NULL);

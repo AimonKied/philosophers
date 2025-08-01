@@ -6,18 +6,18 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:31:56 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 18:30:10 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/02 00:07:25 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	philo_eat(t_philo *philo, int flag)
+int	philo_eat(t_philo *philo)
 {
 	if (philo->left_fork == philo->right_fork)
 		return (printf("%llu %d has taken a fork\n", get_time()
 				- philo->data->time->start, philo->id), -1);
-	get_forks(philo, flag);
+	get_forks(philo);
 	if (check_stop(philo->data) == -1)
 		return (-1);
 	pthread_mutex_lock(philo->data->print);
@@ -42,6 +42,8 @@ int	philo_eat(t_philo *philo, int flag)
 
 int	philo_sleep(t_philo *philo)
 {
+	if (check_stop(philo->data) == -1)
+		return (-1);
 	pthread_mutex_lock(philo->data->print);
 	printf("%llu %d is sleeping\n", get_time()
 		- philo->data->time->start, philo->id);
@@ -54,6 +56,8 @@ int	philo_sleep(t_philo *philo)
 
 int	philo_think(t_philo *philo)
 {
+	if (check_stop(philo->data) == -1)
+		return (-1);
 	pthread_mutex_lock(philo->data->print);
 	printf("%llu %d is thinking\n", get_time()
 		- philo->data->time->start, philo->id);
@@ -63,14 +67,14 @@ int	philo_think(t_philo *philo)
 	return (0);
 }
 
-void	get_forks(t_philo *philo, int flag)
+void	get_forks(t_philo *philo)
 {
-	if (flag == 1)
+	if (philo->left_fork < philo->right_fork)
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
 		pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
 	}
-	else if (flag == 2)
+	else
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
 		pthread_mutex_lock(&philo->data->forks[philo->left_fork]);

@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 18:33:08 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/02 01:12:43 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,37 @@ typedef struct s_data
 
 int			main(int argc, char **argv);
 
+//check.c
 int			check_arg(char *arg);
 int			check_input(char **argv);
 int			check_dead(t_data *data);
 
+//parsing.c
 int			fill_data(int argc, char **argv, t_data *data);
 
+//utils.c
 int			ft_atoi(const char *str);
 uint64_t	get_time(void);
 void		get_first_meal(t_data *data);
 int			check_stop(t_data *data);
 int			ft_usleep(uint64_t time);
 
+//free.c
 void		free_table(t_data *data);
 void		destroy_mutex(t_data *data);
+void		free_everything(t_data *data);
 
 int			init_all(t_data *data);
 int			init_philo(t_data *data);
 void		init_forks(t_data *data);
-int			init_mutex(t_data *data);
+int			init_mutex(t_data *data, int i);
 int			init_threads(t_data *data);
 
 int			execute(t_data *data);
 void		*monitor_routine(void *arg);
 
-int			philo_eat(t_philo *philo, int flag);
-void		get_forks(t_philo *philo, int flag);
+int			philo_eat(t_philo *philo);
+void		get_forks(t_philo *philo);
 int			philo_sleep(t_philo *philo);
 int			philo_think(t_philo *philo);
 
