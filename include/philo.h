@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 03:26:19 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 03:28:30 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			init_threads(t_data *data);
 //execute.c
 int			execute(t_data *data);
 void		*monitor_routine(void *arg);
+void		*philo_routine(void *arg);
 
 //dining.c
 int			philo_eat(t_philo *philo, t_data *data);
