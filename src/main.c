@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:09:26 by swied             #+#    #+#             */
-/*   Updated: 2025/08/01 23:29:42 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 20:06:37 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	main(int argc, char **argv)
 	if (init_all(&data) == -1)
 		return (free(data.table), 1);
 	if (execute(&data) == -1)
-		return (free(data.table), 1);
+		return (destroy_mutex(&data), free_everything(&data), 1);
 	free_everything(&data);
+	destroy_mutex(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 03:28:30 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 20:03:28 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ typedef struct s_table
 	int			nb_philos;
 	int			index;
 	int			reps;
-	u_int64_t	time_to_die;
-	u_int64_t	time_to_eat;
-	u_int64_t	time_to_sleep;
+	uint64_t	time_to_die;
+	uint64_t	time_to_eat;
+	uint64_t	time_to_sleep;
 }	t_table;
 
 typedef struct s_time
 {
-	u_int64_t	start;
-	u_int64_t	now;
+	uint64_t	start;
+	uint64_t	now;
 }	t_time;
 
 typedef struct s_data
@@ -54,10 +54,10 @@ typedef struct s_data
 	t_philo			*philo;
 	t_time			*time;
 	int				stop_simulation;
-	pthread_mutex_t	*mealtime;
+	pthread_mutex_t	mealtime;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*stop_mutex;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	stop_mutex;
+	pthread_mutex_t	print;
 	pthread_t		*t;
 }	t_data;
 
@@ -87,7 +87,7 @@ void		free_everything(t_data *data);
 int			init_all(t_data *data);
 int			init_philo(t_data *data);
 void		init_forks(t_data *data);
-int			init_mutex(t_data *data, int i);
+int			init_mutex(t_data *data);
 int			init_threads(t_data *data);
 
 //execute.c

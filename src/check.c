@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:26:46 by swied             #+#    #+#             */
-/*   Updated: 2025/08/14 23:46:41 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 19:53:42 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,36 @@ int	check_dead(t_data *data)
 	i = 0;
 	while (i < data->table->nb_philos)
 	{
-		pthread_mutex_lock(data->mealtime);
+		pthread_mutex_lock(&data->mealtime);
 		if (get_time() - data->philo[i].last_meal_time
 			> data->table->time_to_die)
 		{
-			pthread_mutex_lock(data->stop_mutex);
+			pthread_mutex_lock(&data->stop_mutex);
 			data->stop_simulation = 1;
-			pthread_mutex_unlock(data->stop_mutex);
+			pthread_mutex_unlock(&data->stop_mutex);
 			if (data->philo[i].meals_eaten == data->table->reps)
-				return (pthread_mutex_unlock(data->mealtime), -1);
+				return (pthread_mutex_unlock(&data->mealtime), -1);
+			pthread_mutex_lock(&data->print);
 			printf("%lu %d died\n", get_time()
 				- data->time->start, data->philo[i].id);
-			pthread_mutex_unlock(data->mealtime);
+			pthread_mutex_unlock(&data->print);
+			pthread_mutex_unlock(&data->mealtime);
 			return (-1);
 		}
-		pthread_mutex_unlock(data->mealtime);
+		pthread_mutex_unlock(&data->mealtime);
 		i++;
 	}
+	return (0);
+}
+
+int	check_stop(t_data *data)
+{
+	pthread_mutex_lock(&data->stop_mutex);
+	if (data->stop_simulation)
+	{
+		pthread_mutex_unlock(&data->stop_mutex);
+		return (-1);
+	}
+	pthread_mutex_unlock(&data->stop_mutex);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 15:22:16 by swied             #+#    #+#             */
-/*   Updated: 2025/08/02 00:05:43 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 20:15:18 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@ int	init_all(t_data *data)
 	if (init_philo(data) == -1)
 		return (-1);
 	init_forks(data);
-	if (init_mutex(data, 0) == -1)
+	if (init_mutex(data) == -1)
 		return (free(data->philo), -1);
 	if (init_threads(data) == -1)
-		return (free(data->philo), free(data->forks),
-			free(data->stop_mutex), free(data->mealtime), -1);
+		return (free(data->philo), free(data->forks), -1);
 	data->time = malloc(sizeof(t_time));
 	if (!data->time)
 	{
 		free(data->philo);
 		free(data->forks);
-		free(data->stop_mutex);
-		free(data->mealtime);
 		printf("Alloc failed\n");
 		return (-1);
 	}
@@ -70,8 +67,11 @@ void	init_forks(t_data *data)
 	data->philo[i].right_fork = 0;
 }
 
-int	init_mutex(t_data *data, int i)
+int	init_mutex(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->table->nb_philos);
 	if (!data->forks)
 		return (printf("Alloc failed\n"), -1);
@@ -80,22 +80,9 @@ int	init_mutex(t_data *data, int i)
 		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-	data->stop_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!data->stop_mutex)
-		return (free(data->forks), printf("Alloc failed\n"), -1);
-	pthread_mutex_init(data->stop_mutex, NULL);
-	data->mealtime = malloc(sizeof(pthread_mutex_t));
-	if (!(data->mealtime))
-	{
-		free(data->forks);
-		return (free(data->stop_mutex), printf("Alloc failed\n"), -1);
-	}
-	pthread_mutex_init(data->mealtime, NULL);
-	data->print = malloc(sizeof(pthread_mutex_t));
-	if (!data->print)
-		return (free(data->forks), free(data->stop_mutex), free(data->mealtime),
-			printf("Alloc failed\n"), -1);
-	pthread_mutex_init(data->print, NULL);
+	pthread_mutex_init(&data->stop_mutex, NULL);
+	pthread_mutex_init(&data->mealtime, NULL);
+	pthread_mutex_init(&data->print, NULL);
 	return (0);
 }
 

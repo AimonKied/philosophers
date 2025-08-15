@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 01:55:42 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 20:05:31 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,9 @@ void	get_first_meal(t_data *data)
 	while (i < data->table->nb_philos)
 	{
 		data->philo[i].data = data;
-		pthread_mutex_lock(data->mealtime);
 		data->philo[i].last_meal_time = data->time->start;
-		pthread_mutex_unlock(data->mealtime);
 		i++;
 	}
-}
-
-int	check_stop(t_data *data)
-{
-	pthread_mutex_lock(data->stop_mutex);
-	if (data->stop_simulation)
-	{
-		pthread_mutex_unlock(data->stop_mutex);
-		return (-1);
-	}
-	pthread_mutex_unlock(data->stop_mutex);
-	return (0);
 }
 
 int	ft_usleep(uint64_t time, t_data *data)

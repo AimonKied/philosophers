@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 03:22:19 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 20:33:46 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	execute(t_data *data)
 	{
 		if (pthread_create(&data->t[i], NULL,
 				philo_routine, &data->philo[i]) != 0)
-			return (printf("Thread creation failed\n"), -1);
-		i++;
-	}
-	i = 0;
-	while (i < data->table->nb_philos)
-	{
-		pthread_join(data->t[i], NULL);
+			{
+				pthread_mutex_lock(&data->print);
+				printf("Thread creation failed\n");
+				pthread_mutex_unlock(&data->print);
+				pthread_join(monitor, NULL);
+				return (-1);
+			}
 		i++;
 	}
 	pthread_join(monitor, NULL);
@@ -73,12 +73,12 @@ void	*monitor_routine(void *arg)
 	{
 		if (check_dead(data) == -1)
 		{
-			pthread_mutex_lock(data->stop_mutex);
+			pthread_mutex_lock(&data->stop_mutex);
 			data->stop_simulation = 1;
-			pthread_mutex_unlock(data->stop_mutex);
+			pthread_mutex_unlock(&data->stop_mutex);
 			break ;
 		}
-		ft_usleep(1000, data);
+		ft_usleep(500, data);
 	}
 	return (NULL);
 }
