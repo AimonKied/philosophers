@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/07/04 18:24:03 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/15 01:55:42 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	check_stop(t_data *data)
 	return (0);
 }
 
-int	ft_usleep(uint64_t time)
+int	ft_usleep(uint64_t time, t_data *data)
 {
 	uint64_t	start;
 	uint64_t	elapsed;
@@ -83,6 +83,8 @@ int	ft_usleep(uint64_t time)
 	elapsed = get_time();
 	while ((elapsed - start) * 1000 < time)
 	{
+		if (check_stop(data) == -1)
+			return (-1);
 		usleep(100);
 		elapsed = get_time();
 	}
