@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:26:46 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 19:53:42 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 14:39:49 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	check_input(char **argv)
 {
-	if (check_arg(argv[1]) == -1)
+	if (!argv[1] || check_arg(argv[1]) == -1)
 		return (printf("Wrong input for Philosopher\n"), -1);
-	if (check_arg(argv[2]) == -1)
+	if (!argv[2] || check_arg(argv[2]) == -1)
 		return (printf("Wrong input for time to die\n"), -1);
-	if (check_arg(argv[3]) == -1)
+	if (!argv[3] || check_arg(argv[3]) == -1)
 		return (printf("Wrong input for time to eat\n"), -1);
-	if (check_arg(argv[4]) == -1)
+	if (!argv[4] || check_arg(argv[4]) == -1)
 		return (printf("Wrong input for time to sleep\n"), -1);
-	if (argv[5])
-		if (check_arg(argv[5]) == -1)
+	if (argv[5] && check_arg(argv[5]) == -1)
 			return (printf("Wrong input for amount of times eating\n"), -1);
 	return (0);
 }
