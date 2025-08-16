@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 20:05:31 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 15:04:16 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,20 @@ int	ft_usleep(uint64_t time, t_data *data)
 		elapsed = get_time();
 	}
 	return (0);
+}
+
+void	join_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->t)
+	{
+		while (i < data->table->nb_philos && data->t[i])
+		{
+			pthread_join(data->t[i], NULL);
+			i++;
+		}
+	}
+	return ;
 }

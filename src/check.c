@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:26:46 by swied             #+#    #+#             */
-/*   Updated: 2025/08/16 14:39:49 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 14:55:08 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,18 @@ int	check_dead(t_data *data)
 			> data->table->time_to_die)
 		{
 			pthread_mutex_lock(&data->stop_mutex);
-			data->stop_simulation = 1;
+			if (!data->stop_simulation)
+			{
+				data->stop_simulation = 1;
+				if (data->philo[i].meals_eaten != data->table->reps)
+				{
+					pthread_mutex_lock(&data->print);
+					printf("%lu %d died\n", get_time()
+						- data->time->start, data->philo[i].id);
+					pthread_mutex_unlock(&data->print);
+				}
+			}
 			pthread_mutex_unlock(&data->stop_mutex);
-			if (data->philo[i].meals_eaten == data->table->reps)
-				return (pthread_mutex_unlock(&data->mealtime), -1);
-			pthread_mutex_lock(&data->print);
-			printf("%lu %d died\n", get_time()
-				- data->time->start, data->philo[i].id);
-			pthread_mutex_unlock(&data->print);
 			pthread_mutex_unlock(&data->mealtime);
 			return (-1);
 		}
@@ -72,6 +76,8 @@ int	check_dead(t_data *data)
 
 int	check_stop(t_data *data)
 {
+	if (!data)
+		return (-1);
 	pthread_mutex_lock(&data->stop_mutex);
 	if (data->stop_simulation)
 	{

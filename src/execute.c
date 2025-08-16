@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 20:33:46 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 15:05:40 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	execute(t_data *data)
 				printf("Thread creation failed\n");
 				pthread_mutex_unlock(&data->print);
 				pthread_join(monitor, NULL);
+				join_threads(data);
 				return (-1);
 			}
 		i++;
 	}
 	pthread_join(monitor, NULL);
+	join_threads(data);
 	return (0);
 }
 

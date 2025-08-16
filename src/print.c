@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 01:34:02 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 20:21:23 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 14:42:00 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,4 @@ void	print_msg(t_philo *philo, int flag, int id)
 			- philo->data->time->start, id);
 	}
 	pthread_mutex_unlock(&philo->data->print);
-}
-
-void	put_str(char *str)
-{
-	while (*str)
-	{
-		write(1, "str", 1);
-	}
 }
