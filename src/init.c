@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 15:22:16 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 20:15:18 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/17 19:52:15 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,11 @@ int	init_threads(t_data *data)
 	data->t = malloc(sizeof(pthread_t) * data->table->nb_philos);
 	if (!data->t)
 		return (printf("Alloc failed\n"), -1);
+	data->m = malloc(sizeof(pthread_t) * data->table->nb_philos);
+	if (!data->m)
+	{
+		free(data->t);
+		return (printf("Alloc failed\n"), -1);
+	}
 	return (0);
 }

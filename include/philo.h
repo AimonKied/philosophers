@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/16 15:05:07 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 15:36:38 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_data
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	print;
 	pthread_t		*t;
+	pthread_t		*m;
 }	t_data;
 
 int			main(int argc, char **argv);
@@ -95,6 +96,7 @@ int			init_threads(t_data *data);
 int			execute(t_data *data);
 void		*monitor_routine(void *arg);
 void		*philo_routine(void *arg);
+void		*philo_monitor_routine(void *arg);
 
 //dining.c
 int			philo_eat(t_philo *philo, t_data *data);

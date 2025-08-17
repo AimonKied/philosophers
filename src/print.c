@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 01:34:02 by swied             #+#    #+#             */
-/*   Updated: 2025/08/16 14:42:00 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/17 20:27:03 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	print_msg(t_philo *philo, int flag, int id)
 {
+	if (philo->data->stop_simulation)
+		return ;
 	pthread_mutex_lock(&philo->data->print);
 	if (flag == 0)
 	{

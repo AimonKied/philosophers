@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:31:56 by swied             #+#    #+#             */
-/*   Updated: 2025/08/15 20:32:29 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/17 20:29:13 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ int	philo_eat(t_philo *philo, t_data *data)
 	if (check_stop(philo->data) == -1)
 		return (-1);
 	get_forks(philo);
+	if (check_stop(philo->data) == -1)
+		return (-1);
 	pthread_mutex_lock(&data->mealtime);
+	print_msg(philo, 1, philo->id);
 	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&data->mealtime);
-	if (check_stop(philo->data) == -1)
-	{
-		pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
-		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-		return (-1);
-	}
-	print_msg(philo, 1, philo->id);
 	if (ft_usleep(philo->data->table->time_to_eat * 1000, data) == -1)
 	{
 		pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
@@ -39,8 +35,6 @@ int	philo_eat(t_philo *philo, t_data *data)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-	if (check_stop(philo->data) == -1)
-		return (-1);
 	return (0);
 }
 
@@ -66,28 +60,34 @@ int	philo_think(t_philo *philo)
 
 void	get_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 != 0)
 	{
-		print_msg(philo, 0, philo->id);
 		pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
+		print_msg(philo, 0, philo->id);
 		if (check_stop(philo->data) == -1)
 		{
 			pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
 			return ;
 		}
-		print_msg(philo, 0, philo->id);
 		pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
+		print_msg(philo, 0, philo->id);
 	}
 	else
 	{
-		print_msg(philo, 0, philo->id);
 		pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
+		print_msg(philo, 0, philo->id);
 		if (check_stop(philo->data) == -1)
 		{
 			pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
 			return ;
 		}
-		print_msg(philo, 0, philo->id);
 		pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
+		print_msg(philo, 0, philo->id);
+	}
+	if (check_stop(philo->data) == -1)
+	{
+		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
+		pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
+		return ;
 	}
 }

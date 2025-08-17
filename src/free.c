@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:12:13 by swied             #+#    #+#             */
-/*   Updated: 2025/08/16 15:14:46 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/16 15:34:30 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	free_everything(t_data *data)
 		free(data->table);
 	if (data->t)
 		free(data->t);
+	if (data->m)
+		free(data->m);
 }
 
 void	destroy_mutex(t_data *data)

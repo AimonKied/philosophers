@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/08/16 15:04:16 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/17 20:26:11 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ uint64_t	get_time(void)
 void	get_first_meal(t_data *data)
 {
 	int	i;
-
-	i = 0;
+i = 0;
 	while (i < data->table->nb_philos)
 	{
 		data->philo[i].data = data;
@@ -87,6 +86,7 @@ void	join_threads(t_data *data)
 		while (i < data->table->nb_philos && data->t[i])
 		{
 			pthread_join(data->t[i], NULL);
+			pthread_join(data->m[i], NULL);
 			i++;
 		}
 	}
