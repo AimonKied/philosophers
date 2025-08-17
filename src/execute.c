@@ -74,7 +74,6 @@ void	*philo_monitor_routine(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->data->stop_simulation)
 	{
-		usleep(1000);
 		pthread_mutex_lock(&philo->data->mealtime);
 		if (get_time() - philo->last_meal_time > philo->data->table->time_to_die)
 		{
@@ -87,6 +86,7 @@ void	*philo_monitor_routine(void *arg)
 			return NULL;
 		}
 		pthread_mutex_unlock(&philo->data->mealtime);
+		ft_usleep(500, philo->data);
 	}
 	return NULL;
 }

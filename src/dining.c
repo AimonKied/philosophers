@@ -22,8 +22,8 @@ int	philo_eat(t_philo *philo, t_data *data)
 	get_forks(philo);
 	if (check_stop(philo->data) == -1)
 		return (-1);
-	pthread_mutex_lock(&data->mealtime);
 	print_msg(philo, 1, philo->id);
+	pthread_mutex_lock(&data->mealtime);
 	philo->last_meal_time = get_time();
 	pthread_mutex_unlock(&data->mealtime);
 	if (ft_usleep(philo->data->table->time_to_eat * 1000, data) == -1)
@@ -83,11 +83,5 @@ void	get_forks(t_philo *philo)
 		}
 		pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
 		print_msg(philo, 0, philo->id);
-	}
-	if (check_stop(philo->data) == -1)
-	{
-		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-		pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
-		return ;
 	}
 }
