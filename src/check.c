@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:26:46 by swied             #+#    #+#             */
-/*   Updated: 2025/08/16 14:55:08 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/17 20:47:33 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,6 @@ int	check_arg(char *arg)
 	{
 		if (arg[i] < '0' || arg[i] > '9')
 			return (-1);
-		i++;
-	}
-	return (0);
-}
-
-int	check_dead(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->table->nb_philos)
-	{
-		pthread_mutex_lock(&data->mealtime);
-		if (get_time() - data->philo[i].last_meal_time
-			> data->table->time_to_die)
-		{
-			pthread_mutex_lock(&data->stop_mutex);
-			if (!data->stop_simulation)
-			{
-				data->stop_simulation = 1;
-				if (data->philo[i].meals_eaten != data->table->reps)
-				{
-					pthread_mutex_lock(&data->print);
-					printf("%lu %d died\n", get_time()
-						- data->time->start, data->philo[i].id);
-					pthread_mutex_unlock(&data->print);
-				}
-			}
-			pthread_mutex_unlock(&data->stop_mutex);
-			pthread_mutex_unlock(&data->mealtime);
-			return (-1);
-		}
-		pthread_mutex_unlock(&data->mealtime);
 		i++;
 	}
 	return (0);
