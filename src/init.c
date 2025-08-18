@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 15:22:16 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 17:41:10 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 20:37:38 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,11 @@ int	init_mutex(t_data *data)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
 		pthread_mutex_init(&data->philo[i].m_eat_enough, NULL);
+		pthread_mutex_init(&data->philo[i].m_meals_eaten, NULL);
+		pthread_mutex_init(&data->philo[i].m_mealtime, NULL);
 		i++;
 	}
 	pthread_mutex_init(&data->stop_mutex, NULL);
-	pthread_mutex_init(&data->mealtime, NULL);
 	pthread_mutex_init(&data->print, NULL);
 	return (0);
 }

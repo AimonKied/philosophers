@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 17:40:23 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 20:42:36 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_philo
 	int		right_fork;
 	int		eat_enough;
 	pthread_mutex_t	m_eat_enough;
+	pthread_mutex_t	m_meals_eaten;
+	pthread_mutex_t	m_mealtime;
 	long	last_meal_time;
 	t_data	*data;
 }	t_philo;
@@ -56,7 +58,6 @@ typedef struct s_data
 	t_philo			*philo;
 	t_time			*time;
 	int				stop_simulation;
-	pthread_mutex_t	mealtime;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	print;
@@ -76,6 +77,7 @@ int			philo_eat(t_philo *philo, t_data *data);
 int			philo_sleep(t_philo *philo, t_data *data);
 int			philo_think(t_philo *philo);
 void		get_forks(t_philo *philo);
+int			single_philo(t_philo *philo);
 
 //execute.c
 int			execute(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 19:07:26 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 20:37:23 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ void	*philo_monitor_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!philo->data->stop_simulation)
+	while (!check_stop(philo->data))
 	{
 		pthread_mutex_lock(&philo->m_eat_enough);
+		pthread_mutex_lock(&philo->m_meals_eaten);
 		if (philo->meals_eaten >= philo->data->table->reps && !philo->eat_enough)
 			philo->eat_enough = 1;
 		pthread_mutex_unlock(&philo->m_eat_enough);
-		pthread_mutex_lock(&philo->data->mealtime);
+		pthread_mutex_unlock(&philo->m_meals_eaten);
+		pthread_mutex_lock(&philo->m_mealtime);
 		if (get_time() - philo->last_meal_time > philo->data->table->time_to_die)
 		{
 			pthread_mutex_lock(&philo->data->print);
@@ -79,10 +81,10 @@ void	*philo_monitor_routine(void *arg)
 				printf("%lu %d died\n", get_time() - philo->data->time->start, philo->id);
 			philo->data->stop_simulation = 1;
 			pthread_mutex_unlock(&philo->data->print);
-			pthread_mutex_unlock(&philo->data->mealtime);
+			pthread_mutex_unlock(&philo->m_mealtime);
 			return NULL;
 		}
-		pthread_mutex_unlock(&philo->data->mealtime);
+		pthread_mutex_unlock(&philo->m_mealtime);
 		ft_usleep(500, philo->data);
 	}
 	return NULL;
@@ -95,7 +97,7 @@ void	*monitor_routine(void *arg)
 	int	finished;
 
 	data = (t_data *)arg;
-	while (!data->stop_simulation)
+	while (!check_stop(data))
 	{
 		i = 0;
 		finished = 0;
