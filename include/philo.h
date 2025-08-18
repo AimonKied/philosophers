@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 21:46:47 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 22:26:29 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,32 @@ typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
-	int		id;
-	int		meals_eaten;
-	int		left_fork;
-	int		right_fork;
-	int		eat_enough;
+	int				id;
+	int				meals_eaten;
+	int				left_fork;
+	int				right_fork;
+	int				eat_enough;
 	pthread_mutex_t	m_eat_enough;
 	pthread_mutex_t	m_meals_eaten;
 	pthread_mutex_t	m_mealtime;
-	long	last_meal_time;
-	t_data	*data;
+	long			last_meal_time;
+	t_data			*data;
 }	t_philo;
 
 typedef struct s_table
 {
-	int			nb_philos;
-	int			index;
-	int			reps;
-	uint64_t	time_to_die;
-	uint64_t	time_to_eat;
-	uint64_t	time_to_sleep;
+	int				nb_philos;
+	int				index;
+	int				reps;
+	uint64_t		time_to_die;
+	uint64_t		time_to_eat;
+	uint64_t		time_to_sleep;
 }	t_table;
 
 typedef struct s_time
 {
-	uint64_t	start;
-	uint64_t	now;
+	uint64_t		start;
+	uint64_t		now;
 }	t_time;
 
 typedef struct s_data
@@ -84,6 +84,7 @@ int			execute(t_data *data);
 void		*philo_routine(void *arg);
 void		*philo_monitor_routine(void *arg);
 void		*monitor_routine(void *arg);
+int			create_threads(t_data *data, int i, pthread_t monitor);
 
 //free.c
 void		free_everything(t_data *data);

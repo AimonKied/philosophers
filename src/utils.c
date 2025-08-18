@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 21:04:54 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 22:22:15 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ uint64_t	get_time(void)
 void	get_first_meal(t_data *data)
 {
 	int	i;
-i = 0;
+
+	i = 0;
 	while (i < data->table->nb_philos)
 	{
 		data->philo[i].data = data;

@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:26:46 by swied             #+#    #+#             */
-/*   Updated: 2025/08/17 20:47:33 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 21:59:33 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_input(char **argv)
 	if (!argv[4] || check_arg(argv[4]) == -1)
 		return (printf("Wrong input for time to sleep\n"), -1);
 	if (argv[5] && check_arg(argv[5]) == -1)
-			return (printf("Wrong input for amount of times eating\n"), -1);
+		return (printf("Wrong input for amount of times eating\n"), -1);
 	return (0);
 }
 
