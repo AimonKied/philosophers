@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 18:56:57 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 19:07:26 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,23 @@ void	*monitor_routine(void *arg)
 {
 	t_data	*data;
 	int	i;
+	int	finished;
 
 	data = (t_data *)arg;
-	i = 0;
 	while (!data->stop_simulation)
 	{
-		pthread_mutex_lock(&data->philo[i].m_eat_enough);
-		if (data->philo[i].eat_enough)
+		i = 0;
+		finished = 0;
+		while (i < data->table->nb_philos)
+		{
+
+			pthread_mutex_lock(&data->philo[i].m_eat_enough);
+			if (data->philo[i].eat_enough)
+				finished++;
+			pthread_mutex_unlock(&data->philo[i].m_eat_enough);
 			i++;
-		pthread_mutex_unlock(&data->philo[i].m_eat_enough);
-		if (i == data->table->nb_philos - 1)
+		}
+		if (finished == data->table->nb_philos && data->table->reps > 0)
 		{
 			pthread_mutex_lock(&data->stop_mutex);
 			data->stop_simulation = 1;
