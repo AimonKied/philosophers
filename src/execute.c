@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/17 20:41:44 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:40:37 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void	*philo_monitor_routine(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->data->stop_simulation)
 	{
+		pthread_mutex_lock(&philo->m_eat_enough);
+		if (philo->meals_eaten >= philo->data->table->reps)
+			philo->eat_enough = 1;
+		pthread_mutex_unlock(&philo->m_eat_enough);
 		pthread_mutex_lock(&philo->data->mealtime);
 		if (get_time() - philo->last_meal_time > philo->data->table->time_to_die)
 		{

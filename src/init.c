@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 15:22:16 by swied             #+#    #+#             */
-/*   Updated: 2025/08/17 19:52:15 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:41:10 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	init_philo(t_data *data)
 	{
 		data->philo[num].id = num + 1;
 		data->philo[num].meals_eaten = 0;
+		data->philo[num].eat_enough = 0;
 		num++;
 	}
 	return (0);
@@ -78,6 +79,7 @@ int	init_mutex(t_data *data)
 	while (i < data->table->nb_philos)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&data->philo[i].m_eat_enough, NULL);
 		i++;
 	}
 	pthread_mutex_init(&data->stop_mutex, NULL);

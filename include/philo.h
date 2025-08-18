@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/17 21:13:36 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 17:40:23 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_philo
 	int		meals_eaten;
 	int		left_fork;
 	int		right_fork;
+	int		eat_enough;
+	pthread_mutex_t	m_eat_enough;
 	long	last_meal_time;
 	t_data	*data;
 }	t_philo;
