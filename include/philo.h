@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 22:26:29 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 22:50:16 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,7 @@ void		increase_meals_eaten(t_philo *philo);
 int			get_forks_even(t_philo *philo);
 int			get_forks_odd(t_philo *philo);
 
+//execute_utils.c
+void		check_philo_meals(t_philo *philo);
+int			all_philos_finished(t_data *data);
 #endif
