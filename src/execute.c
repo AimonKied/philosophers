@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 17:40:37 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 18:56:57 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ void	*philo_routine(void *arg)
 	data = philo->data;
 	while (1)
 	{
-		if (philo->data->table->reps > 0 && philo->meals_eaten >= data->table->reps)
-		{
-			pthread_mutex_lock(&data->stop_mutex);
-			data->stop_simulation = 1;
-			pthread_mutex_unlock(&data->stop_mutex);
-			break ;
-		}
 		if (philo_eat(philo, data) == -1)
 			break ;
 		if (philo_sleep(philo, data) == -1)
@@ -75,7 +68,7 @@ void	*philo_monitor_routine(void *arg)
 	while (!philo->data->stop_simulation)
 	{
 		pthread_mutex_lock(&philo->m_eat_enough);
-		if (philo->meals_eaten >= philo->data->table->reps)
+		if (philo->meals_eaten >= philo->data->table->reps && !philo->eat_enough)
 			philo->eat_enough = 1;
 		pthread_mutex_unlock(&philo->m_eat_enough);
 		pthread_mutex_lock(&philo->data->mealtime);
@@ -98,12 +91,23 @@ void	*philo_monitor_routine(void *arg)
 void	*monitor_routine(void *arg)
 {
 	t_data	*data;
+	int	i;
 
 	data = (t_data *)arg;
-	while (1)
+	i = 0;
+	while (!data->stop_simulation)
 	{
-		if (check_stop(data) == -1)
-			break;
+		pthread_mutex_lock(&data->philo[i].m_eat_enough);
+		if (data->philo[i].eat_enough)
+			i++;
+		pthread_mutex_unlock(&data->philo[i].m_eat_enough);
+		if (i == data->table->nb_philos - 1)
+		{
+			pthread_mutex_lock(&data->stop_mutex);
+			data->stop_simulation = 1;
+			pthread_mutex_unlock(&data->stop_mutex);
+			return (NULL);
+		}
 		ft_usleep(500, data);
 	}
 	return (NULL);
