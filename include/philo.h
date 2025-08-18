@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:11:20 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 20:42:36 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 21:46:47 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			check_stop(t_data *data);
 int			philo_eat(t_philo *philo, t_data *data);
 int			philo_sleep(t_philo *philo, t_data *data);
 int			philo_think(t_philo *philo);
-void		get_forks(t_philo *philo);
+int			get_forks(t_philo *philo);
 int			single_philo(t_philo *philo);
 
 //execute.c
@@ -108,5 +108,11 @@ uint64_t	get_time(void);
 void		get_first_meal(t_data *data);
 int			ft_usleep(uint64_t time, t_data *data);
 void		join_threads(t_data *data);
+
+//dining_utils.c
+void		update_meal_time(t_philo *philo);
+void		increase_meals_eaten(t_philo *philo);
+int			get_forks_even(t_philo *philo);
+int			get_forks_odd(t_philo *philo);
 
 #endif

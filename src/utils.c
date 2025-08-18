@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:06:01 by swied             #+#    #+#             */
-/*   Updated: 2025/08/17 20:26:11 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/18 21:04:54 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ void	join_threads(t_data *data)
 {
 	int	i;
 
+	if (!data->t || !data->m)
+		return ;
 	i = 0;
 	if (data->t)
 	{
-		while (i < data->table->nb_philos && data->t[i])
+		while (i < data->table->nb_philos)
 		{
 			pthread_join(data->t[i], NULL);
 			pthread_join(data->m[i], NULL);
