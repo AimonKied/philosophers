@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:17:38 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 21:44:46 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/19 16:00:35 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	increase_meals_eaten(t_philo *philo)
 int	single_philo(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->print);
-	printf("%lu %d has taken a fork\n", get_time()
+	printf("%llu %d has taken a fork\n", get_time()
 		- philo->data->time->start, philo->id);
 	pthread_mutex_unlock(&philo->data->print);
 	return (-1);

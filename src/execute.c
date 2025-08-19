@@ -6,7 +6,7 @@
 /*   By: swied <swied@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:21:31 by swied             #+#    #+#             */
-/*   Updated: 2025/08/18 22:50:51 by swied            ###   ########.fr       */
+/*   Updated: 2025/08/19 16:01:26 by swied            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	*philo_monitor_routine(void *arg)
 		{
 			pthread_mutex_lock(&philo->data->print);
 			if (!philo->data->stop_simulation)
-				printf("%lu %d died\n", get_time() - philo->data->time->start,
+				printf("%llu %d died\n", get_time() - philo->data->time->start,
 					philo->id);
 			philo->data->stop_simulation = 1;
 			pthread_mutex_unlock(&philo->data->print);
